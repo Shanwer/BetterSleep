@@ -1,2 +1,8 @@
 percentage: 100
 SwitchMode: false
+
+# locale
+Enter: entered
+Left: left
+NightSkip: Night successfully skipped!
+Bed: the bed.
