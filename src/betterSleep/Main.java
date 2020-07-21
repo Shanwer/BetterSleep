@@ -39,7 +39,7 @@ public class Main extends JavaPlugin implements Listener {
         System.out.println(getServer().getWorlds().get(0).isThundering());
 
         sleepingPlayers.add(event.getPlayer());
-        bedMessage(event.getPlayer(), "entered");
+        bedMessage(event.getPlayer(), getConfig().getString("Enter"));
 
 
         if(!enoughPlayers()) {
@@ -54,13 +54,15 @@ public class Main extends JavaPlugin implements Listener {
             getServer().getWorlds().get(0).setTime(0);
             getServer().getWorlds().get(0).setStorm(false);
             getServer().getWorlds().get(0).setThundering(false);
-            getServer().broadcastMessage("§aNight successfully skipped!");
-
+            getServer().broadcastMessage(getConfig().getString("NightSkip"));
+            /* It's unable to use in mohist:(
             getServer().getWorlds().get(0).getPlayers().forEach((player) -> {
                 if(player.isSleeping()){
-                    player.wakeup(false);
+                    player.wakeup();
                 }
+
             });
+            */
         }, 101);
     }
 
@@ -68,7 +70,7 @@ public class Main extends JavaPlugin implements Listener {
     public void onPlayerBedLeave(PlayerBedLeaveEvent event) {
         sleepingPlayers.remove(event.getPlayer());
         if((getServer().getWorlds().get(0).getTime() > 12541 && getServer().getWorlds().get(0).getTime() < 23458) || getServer().getWorlds().get(0).isThundering()){
-            bedMessage(event.getPlayer(), "left");
+            bedMessage(event.getPlayer(), getConfig().getString("Left"));
         }
     }
 
@@ -188,6 +190,6 @@ public class Main extends JavaPlugin implements Listener {
             output = "(" + sleepingPlayers.size() + "/" + (int)v + ")";
         }
 
-        getServer().broadcastMessage("§e" + player.getName() + " " + string + " the bed. " + output);
+        getServer().broadcastMessage("§e" + player.getName() + " " + string + getConfig().getString("Bed") + output);
     }
 }
